@@ -7,7 +7,7 @@ A collection of practical lab experiments built with React.js and modern state m
 ## 📂 Experiments Index
 
 * **[EXP1](./EXP1)** - Component Architecture & Lifecycle *(Coming Soon)*
-* **[EXP2](./EXP2)** - Centralized State Management System (Redux Toolkit with Space Theme)
+* **[EXP2](./EXP2)** - Centralized State Management System (Redux Toolkit)
 * **[EXP3](./EXP3)** - *(Coming Soon)*
 
 ---
