@@ -1,26 +1,15 @@
-import { createSelector } from '@reduxjs/toolkit';
+export const selectAllPosts = (state) => state.posts.posts;
+export const selectSelectedDate = (state) => state.posts.selectedDate;
+export const selectActivePlatform = (state) => state.posts.activePlatform;
+export const selectViewMode = (state) => state.posts.viewMode;
 
-const selectPostsState = (state) => state.posts.items;
-const selectActivePlatform = (state) => state.posts.activePlatform;
+export const selectFilteredPosts = (state) => {
+  const { posts, activePlatform } = state.posts;
+  if (activePlatform === 'ALL') return posts;
+  return posts.filter((p) => p.platform.toLowerCase() === activePlatform.toLowerCase());
+};
 
-export const selectFilteredPosts = createSelector(
-  [selectPostsState, selectActivePlatform],
-  (items, platform) => {
-    if (!platform || platform === 'ALL') return items;
-    return items.filter((post) => post.platform === platform);
-  }
-);
-
-export const selectPlatformMetrics = createSelector(
-  [selectPostsState],
-  (items) => {
-    return items.reduce(
-      (acc, post) => {
-        acc[post.platform] = (acc[post.platform] || 0) + 1;
-        acc.total += 1;
-        return acc;
-      },
-      { total: 0 }
-    );
-  }
-);
+export const selectPostsForSelectedDate = (state) => {
+  const { posts, selectedDate } = state.posts;
+  return posts.filter((p) => p.date === selectedDate);
+};

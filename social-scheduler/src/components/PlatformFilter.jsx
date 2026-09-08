@@ -1,37 +1,42 @@
 import React from 'react';
+import { useSelector, useDispatch } from 'react-redux';
+import { setActivePlatform } from '../store/postsSlice';
 
-const PLATFORMS = ['ALL', 'Twitter', 'LinkedIn', 'Instagram', 'Facebook'];
+const platforms = ['ALL', 'Twitter', 'LinkedIn', 'Instagram', 'Facebook'];
 
-const PlatformFilter = React.memo(({ activePlatform, onSelectPlatform, metrics }) => {
+export default function PlatformFilter() {
+  const dispatch = useDispatch();
+  const { posts, activePlatform } = useSelector((state) => state.posts);
+
+  const getCount = (platform) => {
+    if (platform === 'ALL') return posts.length;
+    return posts.filter((p) => p.platform.toLowerCase() === platform.toLowerCase()).length;
+  };
+
   return (
-    <div style={{ display: 'flex', gap: '8px', marginBottom: '16px', flexWrap: 'wrap' }}>
-      {PLATFORMS.map((platform) => {
-        const count = platform === 'ALL' ? metrics.total : (metrics[platform] || 0);
+    <div style={{ display: 'flex', gap: '8px', marginBottom: '16px' }}>
+      {platforms.map((platform) => {
         const isActive = activePlatform === platform;
-
         return (
           <button
             key={platform}
-            onClick={() => onSelectPlatform(platform)}
+            data-testid={`filter-${platform.toLowerCase()}`}
+            onClick={() => dispatch(setActivePlatform(platform))}
             style={{
               padding: '6px 14px',
               borderRadius: '20px',
-              border: '1px solid #cbd5e1',
+              border: isActive ? '1px solid #0f172a' : '1px solid #cbd5e1',
               backgroundColor: isActive ? '#0f172a' : '#ffffff',
-              color: isActive ? '#ffffff' : '#334155',
+              color: isActive ? '#ffffff' : '#475569',
               cursor: 'pointer',
-              fontSize: '13px',
-              fontWeight: 500,
-              transition: 'all 0.15s ease',
+              fontWeight: '600',
+              fontSize: '12px',
             }}
           >
-            {platform} ({count})
+            {platform} ({getCount(platform)})
           </button>
         );
       })}
     </div>
   );
-});
-
-PlatformFilter.displayName = 'PlatformFilter';
-export default PlatformFilter;
+}
