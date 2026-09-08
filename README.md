@@ -9,7 +9,7 @@ A collection of practical lab experiments built with React.js and modern state m
 * **[EXP1](./EXP1)** - Component Architecture & Lifecycle 
 * **[EXP2](./EXP2)** - Centralized State Management System (Redux Toolkit)
 * **[EXP3](./exp3)** - JWT Authentication
-* **[EXP3](./EXP4)** - Social Scheduler
+* **[EXP4](./EXP4)** - Social Scheduler
 
 ---
 
